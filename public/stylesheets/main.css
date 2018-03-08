@@ -3913,22 +3913,15 @@ footer a:hover {
 
 footer a.logo {
     position: relative;
-    background-image: url(../images/mf-logo.svg);
+    background-image: url(../images/logo.png);
     background-size: 100%;
     display: inline-block;
-    width: 34px;
-    height: 32px;
+    width: 177px;
+    height: 106px;
     text-indent: -99999px;
     margin: 0 auto;
     border-radius: 3px;
     opacity: 0.5
-}
-
-@media screen and (min-width: 750px) {
-    footer a.logo {
-        width: 40px;
-        height: auto
-    }
 }
 
 footer p.made-by-me {
