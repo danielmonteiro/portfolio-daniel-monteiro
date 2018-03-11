@@ -249,40 +249,42 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="eight columns offset-by-two columns">
-                          <p class="intro white">Please, fill the contact form below.</p>
-                          <p class="statement white">I'll reply your message as soon as possible.</p>
+                      <div class="form-contact">
+                        <div class="row">
+                          <div class="eight columns offset-by-two columns">
+                            <p class="intro white">Please, fill the contact form below.</p>
+                            <p class="statement white">I'll reply your message as soon as possible.</p>
+                          </div>
                         </div>
-                      </div>
-                      <div class="form-container">
-                        
-                        <form accept-charset="UTF-8" action="/send-message" method="POST">
-                          <div class="row">
-                            <div class="six columns">
-                              <input id="name" type="text" name="name" placeholder="Name *" required="" class="u-full-width">
+                        <div class="form-container">
+                          
+                          <form accept-charset="UTF-8" action="/send-message" method="POST" id="form-contact">
+                            <div class="row">
+                              <div class="six columns">
+                                <input id="name" type="text" name="name" placeholder="Name *" required="" class="u-full-width">
+                              </div>
+                              <div class="six columns">
+                                <input id="email" type="email" name="email" placeholder="Email *" required="" class="u-full-width">
+                              </div>
                             </div>
-                            <div class="six columns">
-                              <input id="email" type="email" name="email" placeholder="Email *" required="" class="u-full-width">
+                            <div class="row">
+                              <div class="six columns">
+                                <input id="phone" type="text" name="phone" placeholder="Phone" class="u-full-width">
+                              </div>
+                              <div class="six columns">
+                                <input id="website" type="text" name="website" placeholder="Website" class="u-full-width">
+                              </div>
                             </div>
-                          </div>
-                          <div class="row">
-                            <div class="six columns">
-                              <input id="phone" type="text" name="phone" placeholder="Phone" class="u-full-width">
+                            <div class="row">
+                              <div class="twelve columns">
+                                <textarea id="Message" name="message" placeholder="Tell me about your project... what is it? Why are you doing it? What do you hope to accomplish? How can I help? Timeline and budget details are also appreciated. *" height="50em" required="" class="u-full-width"></textarea>
+                                <input type="text" name="_gotcha" style="display:none">
+                                <input type="submit" value="Send Message" class="button button-ghost-white">
+                                <p class="required">* Required</p>
+                              </div>
                             </div>
-                            <div class="six columns">
-                              <input id="website" type="text" name="website" placeholder="Website" class="u-full-width">
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="twelve columns">
-                              <textarea id="Message" name="message" placeholder="Tell me about your project... what is it? Why are you doing it? What do you hope to accomplish? How can I help? Timeline and budget details are also appreciated. *" height="50em" required="" class="u-full-width"></textarea>
-                              <input type="text" name="_gotcha" style="display:none">
-                              <input type="submit" value="Send Message" class="button button-ghost-white">
-                              <p class="required">* Required</p>
-                            </div>
-                          </div>
-                        </form>
+                          </form>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -319,6 +321,41 @@
     <script>
       new WOW().init();
       
+      $("#form-contact").on('submit', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        $.ajax({
+          url: $(this).attr('action'),
+          type: 'POST',
+          data: $(this).serialize(),
+          success: function(resp) {
+            $('.form-contact').html(`
+              <p>Your message was successfully sent!</p>
+              <div class="page-scroll">
+                <a href="#" class="button button-blue">
+                  <span style="color: white;">Back</span>
+                </a>
+              </div>
+            `);
+          },
+          error: function() {
+            $('.form-contact').html(`
+              <p>Sorry... an error occurred...</p>
+              <div class="page-scroll">
+                <a href="#" class="button button-blue">
+                  <span style="color: white;">Back</span>
+                </a>
+              </div>
+            `);
+          }
+        });
+      });
+
+      $('body').on('click', '.form-contact .button-blue', function() {
+        $('.cd-modal-close').trigger('click');
+      })
+
     </script>
   </body>
 </html>

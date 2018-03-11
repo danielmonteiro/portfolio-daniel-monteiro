@@ -34,7 +34,11 @@ router.post('/send-message', function(req, res, next) {
     , from: 'danielpinhomonteiro@gmail.com'
     , subject: 'Daniel Pinho Monteiro - New Contact Received'
     , message: emailContent
-  }, function () { });
+  }, function () {
+    
+  });
+
+  res.status(200).json({ status: 'OK' });
 
 });
 
